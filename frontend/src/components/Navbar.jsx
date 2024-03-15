@@ -35,7 +35,7 @@ const Navbar = () => {
       >
         <NavLink to="/">Home</NavLink>
         <NavLink to="/find-train">Find Train</NavLink>
-        <NavLink to="/reservation">Reservation</NavLink>
+        <NavLink to="/reservations">Reservation</NavLink>
         <NavLink to="/booking-history">Booking History</NavLink>
       </nav>
     </main>

@@ -10,27 +10,34 @@ const Login = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Username:
+    <form
+      className="mx-auto mt-20 p-4 py-10 rounded-md bg-gray-800 border border-white w-max flex flex-col items-start space-y-8"
+      onSubmit={handleSubmit}
+    >
+      <div>
+        <label className="mr-4 text-yellow-500 text-xl">Username:</label>
         <input
           type="text"
           value={username}
+          className='bg-gray-900 opacity-3 text-white border'
           onChange={(e) => setUsername(e.target.value)}
         />
-      </label>
-      <label>
-        Password:
+      </div>
+
+      <div>
+        <label className='mr-4 text-yellow-500 text-xl'>Password:</label>
         <input
           type="password"
           value={password}
+          className='bg-gray-900 opacity-3 text-white border'
           onChange={(e) => setPassword(e.target.value)}
         />
-      </label>
-      <button type="submit">Login</button>
+      </div>
+
+      <button className='w-full bg-yellow-600 rounded-md py-1' type="submit">Login</button>
       {!username && (
         <p>
-                  You don{'`'}t have register? <a href="/signup">Signup</a>
+          You don{"`"}t have register? <a className='text-blue-300' href="/signup">Signup</a>
         </p>
       )}
     </form>
