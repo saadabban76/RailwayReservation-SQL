@@ -5,7 +5,7 @@ const Navbar = () => {
 
   return (
     <main className="flex flex-col">
-      <div className="flex justify-between items-center pb-4 border-b border-gray-700">
+      <div className="flex px-5 pt-2 justify-between items-center pb-4 border-b border-gray-700">
         <div className="flex items-center space-x-2">
           <img src="/assets/logo.png" className="w-[65px]" alt="logo" />
           <h1 className="text-2xl max-sm:text-[1.3rem] text-yellow-400">
@@ -21,7 +21,7 @@ const Navbar = () => {
             Login
           </button>
           <button
-            onClick={()=> navigate('/login')}
+            onClick={()=> navigate('/signup')}
             className="p-1 
         font-semibold text-red-400 text-[1rem] px-4 rounded-md"
           >

@@ -3,6 +3,7 @@ import Home from "./Home";
 import Navbar from "./Navbar";
 import Login from "./Login";
 import Reservation from "./Reservation";
+import Signup from "./Signup";
 
 const Body = () => {
   return (
@@ -14,7 +15,7 @@ const Body = () => {
           <Route path="/reservations" element={<Reservation />} />
           <Route path="/path" element={<h1>path</h1>} />
           <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<h1>path</h1>} />
+          <Route path="/signup" element={<Signup />} />
         </Routes>
       </BrowserRouter>
     </main>
