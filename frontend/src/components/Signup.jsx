@@ -18,13 +18,13 @@ const Signup = () => {
     // Add logic here to submit the form with the user data
     
     const userDetails = {
-      fname: fName,
-      lname: lName,
+      fName,
+      lName,
       email: email,
       password: password,
       gender: gender,
       marital_status: marital,
-      dob: new Date(dob).toISOString(),
+      dob,
       mobile: `+91${mobile}`
     };
 
@@ -40,24 +40,18 @@ const Signup = () => {
         throw new Error('Error while  creating account');
       } else {
         try {
-          localStorage.setItem('username', userDetails.fname);
-          window.location.href='/';
+          localStorage.setItem('user', userDetails.fName);
+          toast.success('Succesfully Registered !');
+          setTimeout(() => {
+            window.location.href='/';
+          }, 2000);
         } catch (e) {
           console.log('please enable localStorage to use the website !');
         }
       }
     })
 
-    console.log({
-      fName,
-      lName,
-      email,
-      password,
-      gender,
-      marital,
-      dob,
-      mobile
-    });
+ 
   };
 
   return (

@@ -4,16 +4,17 @@ import Navbar from "./Navbar";
 import Login from "./Login";
 import Reservation from "./Reservation";
 import Signup from "./Signup";
+import FindTrain from "./FindTrain";
 
 const Body = () => {
   return (
-    <main className="h-full">
+    <main className="min-h-screen">
       <BrowserRouter>
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/reservations" element={<Reservation />} />
-          <Route path="/path" element={<h1>path</h1>} />
+          <Route path="/find-train" element={<FindTrain />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
         </Routes>
