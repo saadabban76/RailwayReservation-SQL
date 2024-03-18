@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { Toaster, toast } from 'sonner'
-
+import { Toaster, toast } from "sonner";
 
 const Signup = () => {
   const [fName, setFName] = useState("");
@@ -12,11 +11,10 @@ const Signup = () => {
   const [dob, setDob] = useState("");
   const [mobile, setMobile] = useState("");
 
-
   const handleSubmit = (event) => {
     event.preventDefault();
     // Add logic here to submit the form with the user data
-    
+
     const userDetails = {
       fName,
       lName,
@@ -28,36 +26,38 @@ const Signup = () => {
       mobile: `+91${mobile}`
     };
 
-    fetch('http://localhost:3000/signup', {
-      method: 'POST',
+    fetch("http://localhost:3000/signup", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json"
       },
-      body:JSON.stringify(userDetails) 
-    }).then((res) => {
+      body: JSON.stringify(userDetails)
+    }).then(async (res) => {
+      const data = await res.json();
       if (!res.ok) {
-        toast.error('server error !');
-        throw new Error('Error while  creating account');
+        toast.error("server error !");
+        throw new Error("Error while  creating account");
       } else {
         try {
-          localStorage.setItem('user', userDetails.fName);
-          toast.success('Succesfully Registered !');
+          localStorage.setItem("user", userDetails.fName);
+          localStorage.setItem("userId", data.userId);
+          toast.success("Succesfully Registered !");
           setTimeout(() => {
-            window.location.href='/';
+            window.location.href = "/login";
           }, 2000);
         } catch (e) {
-          console.log('please enable localStorage to use the website !');
+          console.log("please enable localStorage to use the website !");
         }
       }
-    })
-
- 
+    });
   };
 
   return (
     <main>
-            <Toaster />
-          <h1 className='text-center text-3xl border-b border-yellow-800 font-semibold mt-4 pb-3'>Sign Up</h1>
+      <Toaster />
+      <h1 className="text-center text-3xl border-b border-yellow-800 font-semibold mt-4 pb-3">
+        Sign Up
+      </h1>
       <form
         className="mx-auto max:sm:w-full w-[500px] mt-20 p-4 py-10 rounded-md bg-gray-800 border border-white  flex flex-col items-start space-y-8"
         onSubmit={handleSubmit}
@@ -128,7 +128,7 @@ const Signup = () => {
           <label className="mr-4 text-yellow-500 text-xl">Date of Birth:</label>
           <input
             type="text"
-            placeholder='01/01/2001'
+            placeholder="01/01/2001"
             value={dob}
             className="bg-gray-900 opacity-3 text-white border"
             onChange={(e) => setDob(e.target.value)}

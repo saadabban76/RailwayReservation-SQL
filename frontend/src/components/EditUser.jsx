@@ -1,14 +1,25 @@
+import axios from "axios";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 const EditUser = () => {
+
+  const userId = localStorage.getItem("userId")
+  ? String(localStorage.getItem("userId"))
+    : null; // gets the user id from the localStorage.
+  
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
+    id: Number(userId),
     firstName: "",
     lastName: "",
     email: "",
     dob: "",
     gender: "",
-    maritalStatus: "",
-    mobileNo: "",
+    marital: "",
+    mobile: null,
   });
 
   const handleInputChange = (e) => {
@@ -19,9 +30,19 @@ const EditUser = () => {
     };
     
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission here
+    try {
+      await axios.put("http://localhost:3000/updateuser", formData);
+      toast.success("User Updated Succesfully !");
+      setTimeout(() => {
+        navigate('/profile');        
+      }, 2000);
+    } catch (e) {
+      console.log("error updating the user details");
+      toast.error("Error while Updating the User !");
+      throw new e;
+    }
   };
 
   return (
@@ -102,13 +123,13 @@ const EditUser = () => {
             </select>
           </div>
           <div>
-            <label htmlFor="maritalStatus" className="text-gray-600">
+            <label htmlFor="marital" className="text-gray-600">
               Marital Status:
             </label>
             <select
-              name="maritalStatus"
-              id="maritalStatus"
-              value={formData.maritalStatus}
+              name="marital"
+              id="marital"
+              value={formData.marital}
               onChange={handleInputChange}
               className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-black"
             >
@@ -119,14 +140,14 @@ const EditUser = () => {
             </select>
           </div>
           <div>
-            <label htmlFor="mobileNo" className="text-gray-600">
+            <label htmlFor="mobile" className="text-gray-600">
               Mobile No:
             </label>
             <input
               type="tel"
-              name="mobileNo"
-              id="mobileNo"
-              value={formData.mobileNo}
+              name="mobile"
+              id="mobile"
+              value={formData.mobile}
               onChange={handleInputChange}
               className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-black"
             />

@@ -19,13 +19,15 @@ const Login = () => {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(userDetails)
-    }).then((res) => {
+    }).then(async (res) => {
+      const data = await res.json();
       if (!res.ok) {
         toast.error("Invalid User or Password");
-          throw new Error('Error while  creating account');
+        throw new Error("Error while  creating account");
       } else {
         try {
           localStorage.setItem("user", userDetails.username);
+          localStorage.setItem("userId", data.userId);
           toast.success("User Succesfully Loggedin !");
           setTimeout(() => {
             window.location.href = "/";

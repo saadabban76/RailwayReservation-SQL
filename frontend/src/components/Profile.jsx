@@ -7,16 +7,17 @@ const Profile = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState();
 
-  const localUser = localStorage.getItem("user")
-    ? String(localStorage.getItem("user"))
+  const localId = localStorage.getItem("userId")
+    ? String(localStorage.getItem("userId"))
     : null; // gets the user value from the localStorage.
 
   const getUser = async () => {
     try {
       const response = await axios.post("http://localhost:3000/getuser", {
-        user: localUser
+        userId: localId
       });
       setUser(await response.data.data);
+      localStorage.setItem("userId", await response.data.data.id);
     } catch (e) {
       console.log("error white getting the user details.");
       toast.error("User not found.", {
@@ -26,13 +27,32 @@ const Profile = () => {
     }
   };
 
-    const editHandler = (e) => {
-        e.preventDefault();
-        navigate('/edituser');
+  const editHandler = (e) => {
+    e.preventDefault();
+    navigate("/edituser");
+  };
+
+  const deleteHandler = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post("http://localhost:3000/deleteuser", {
+        userId: localId
+      });
+      toast.success("User Deleted Succesfully !");
+      localStorage.removeItem('user');
+      localStorage.removeItem('userId');
+      setTimeout(() => {
+        navigate('/');        
+      }, 2000);
+    } catch (e) {
+      console.log("error deleting the user details");
+      toast.error("Error while deleting the User !");
+      throw new e;
+    }
   };
 
   useEffect(() => {
-    if (!localUser || localUser === null) {
+    if (!localId || localId === null) {
       toast.error("please login before accessing the page .");
       setTimeout(() => {
         navigate("/");
@@ -85,12 +105,18 @@ const Profile = () => {
             <p>Avengers</p>
           </div> */}
         </div>
-        <div className="flex items-center mt-10 animate-pulse justify-between">
+        <div className="flex items-center mt-10 space-x-8">
           <button
             onClick={editHandler}
-            className="text-xl font-semibold text-yellow-700 hover:underline"
+            className="text-xl animate-pulse  font-semibold text-yellow-700 hover:underline"
           >
             Edit Profile
+          </button>
+          <button
+            onClick={deleteHandler}
+            className="text-md font-semibold text-white px-4 rounded-md bg-red-500 hover:underline"
+          >
+            Delete user
           </button>
         </div>
       </div>
