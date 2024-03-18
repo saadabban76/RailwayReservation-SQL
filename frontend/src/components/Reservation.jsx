@@ -147,13 +147,18 @@ const Reservation = () => {
               trains.map((train, index) => {
                 console.log("train: ", train);
                 return (
-                  <tr key={index} className="text-center">
+                  <tr key={index} className="text-center border">
                     <td>{train?.Number}</td>
                     <td>{train?.Name}</td>
                     <td>{train?.Ori}</td>
                     <td>{train?.Dest}</td>
                     <td>{train?.Oriarri}</td>
                     <td>{train?.Desarri}</td>
+                    <td>
+                      <button className='text-white px-4 rounded-md hover:bg-green-400 bg-blue-500'
+                      onClick={()=> alert(`You sure you want to book ${reservation.quota} ticket for ${train?.Name} ?`)}
+                      >Reserv</button>
+                    </td>
                   </tr>
                 );
               })}
