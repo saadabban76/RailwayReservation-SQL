@@ -39,8 +39,6 @@ const Signup = () => {
         throw new Error("Error while  creating account");
       } else {
         try {
-          localStorage.setItem("user", userDetails.fName);
-          localStorage.setItem("userId", data.userId);
           toast.success("Succesfully Registered !");
           setTimeout(() => {
             window.location.href = "/login";

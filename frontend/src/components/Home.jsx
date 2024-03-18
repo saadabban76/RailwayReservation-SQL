@@ -2,7 +2,7 @@ import Slider from "./Slider";
 
 const Home = () => {
   return (
-    <div className="flex h-screen flex-col space-y-4 p-4 justify-between">
+    <div className="flex h-[90vh] flex-col space-y-4 p-4 justify-between">
       <section className="flex items-start mx-auto  mt-10 max-h-[650px]">
         <div className="flex-[0.9] max-w-[1000px] h-[80%] text-center">
           <Slider />
@@ -31,7 +31,7 @@ const Home = () => {
       </section>
       <footer className="flex justify-between items-center py-4 bg-black text-gray-200 px-4 border-t border-gray-800">
         <h1>Railway Reservation Project</h1>
-        <p>give full marks if you like the project 🙂</p>
+        <p>like the project ? give extra marks🙂</p>
       </footer>
     </div>
   );

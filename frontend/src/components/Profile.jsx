@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "sonner";
+import { Toaster, toast } from "sonner";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -34,20 +34,25 @@ const Profile = () => {
 
   const deleteHandler = async (e) => {
     e.preventDefault();
-    try {
-      await axios.post("http://localhost:3000/deleteuser", {
-        userId: localId
-      });
-      toast.success("User Deleted Succesfully !");
-      localStorage.removeItem('user');
-      localStorage.removeItem('userId');
-      setTimeout(() => {
-        navigate('/');        
-      }, 2000);
-    } catch (e) {
-      console.log("error deleting the user details");
-      toast.error("Error while deleting the User !");
-      throw new e;
+    let confirmation = confirm("are you sure you want to delete the user ? ");
+    if (confirmation) {
+      try {
+        await axios.post("http://localhost:3000/deleteuser", {
+          userId: localId
+        });
+        toast.success("User Deleted Succesfully !");
+        localStorage.removeItem("user");
+        localStorage.removeItem("userId");
+        setTimeout(() => {
+          navigate("/");
+        }, 2000);
+      } catch (e) {
+        console.log("error deleting the user details");
+        toast.error("Error while deleting the User !");
+        throw new e();
+      }
+    } else {
+      toast.success("user not deleted, dont worry 😊");
     }
   };
 
@@ -64,9 +69,9 @@ const Profile = () => {
 
   return (
     <main className="p-6">
+      <Toaster richColors />
       <div className="bg-gray-200 text-black p-8 rounded-md shadow-md">
         <h2 className="text-2xl font-semibold">Profile</h2>
-
         <div className="grid grid-cols-2 gap-4 mt-6">
           <div>
             <p className="text-gray-600">First Name:</p>

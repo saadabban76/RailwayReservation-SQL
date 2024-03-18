@@ -52,11 +52,11 @@ app.post("/login", async (req, res) => {
     }
 
     const user = await result[0]; // returns any 1 value that matches the result.
-    // console.log("result : ", user.id);
+    console.log("result : ", user); 
 
-    const isPasswordValid = (await password) === String(user.password);
+    const isPasswordValid = password == String(user.password);
     // you can also use bcrypt for password comparison.
-    console.log("pv : ", isPasswordValid);
+    console.log("pv : ", user.password);
 
     if (!isPasswordValid) {
       return res.status(401).send({ message: "Invalid email or password." });
